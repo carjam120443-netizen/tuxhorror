@@ -86,13 +86,20 @@ public static class TuxHorrorSceneBuilder
         RenderSettings.fogDensity = 0.018f;
 
         EditorSceneManager.SaveScene(scene, ScenePath);
+        EditorBuildSettings.scenes = new[]
+        {
+            new EditorBuildSettingsScene(ScenePath, true)
+        };
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         Selection.activeGameObject = tux;
         Debug.Log("TuxHorror prototype scene created at " + ScenePath);
-        EditorUtility.DisplayDialog("TuxHorror",
-            "Starter scene created! Open Assets/Scenes/TuxHorror_Prototype and press Play.",
-            "Let's go!");
+        if (!Application.isBatchMode)
+        {
+            EditorUtility.DisplayDialog("TuxHorror",
+                "Starter scene created! Open Assets/Scenes/TuxHorror_Prototype and press Play.",
+                "Let's go!");
+        }
     }
 
     private static void MakeTuxVisuals(Transform parent, Material black, Material white,
@@ -137,9 +144,28 @@ public static class TuxHorrorSceneBuilder
 
     private static Material MakeMaterial(string materialName, Color color)
     {
+        if (!AssetDatabase.IsValidFolder("Assets/Materials"))
+            AssetDatabase.CreateFolder("Assets", "Materials");
+
+        string path = "Assets/Materials/" + materialName + ".mat";
+        Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
         Shader shader = Shader.Find("Universal Render Pipeline/Lit");
         if (shader == null) shader = Shader.Find("Standard");
-        Material material = new Material(shader) { name = materialName, color = color };
+        if (shader == null)
+            throw new System.InvalidOperationException("No supported shader was found.");
+
+        if (material == null)
+        {
+            material = new Material(shader) { name = materialName };
+            AssetDatabase.CreateAsset(material, path);
+        }
+        else
+        {
+            material.shader = shader;
+        }
+
+        material.color = color;
+        EditorUtility.SetDirty(material);
         return material;
     }
 }
