@@ -1,0 +1,39 @@
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+
+# IDE and editor files
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svclog
+
+# Unity generated files
+*.tmp
+*.orig
+*.unitypackage
+*.stackdump
+sysinfo.txt
+
+# Crash reports
+MemoryCaptures/
+Recordings/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Keep Assets, Packages, ProjectSettings, and Unity .meta files tracked.
