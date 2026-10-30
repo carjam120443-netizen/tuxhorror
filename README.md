@@ -17,41 +17,52 @@ TuxHorror is a Unity project about exploring an abandoned research facility wher
 
 ## Requirements
 
-- Unity 6 (a current Unity 6 LTS editor is recommended)
-- Windows or Linux for development and testing
+- Unity **6000.6.7f1**
 - Git
 
 The movement and camera scripts currently use Unity's built-in legacy Input API. In **Edit → Project Settings → Player → Other Settings**, set **Active Input Handling** to **Both** (or **Input Manager (Old)**). Unity may ask to restart the Editor.
 
 ## Getting started
 
-### 1. Create the Unity project
+1. Clone this repository:
 
-1. Open Unity Hub.
-2. Create a **3D (URP)** project named `TuxHorror` using your installed Unity 6 editor.
-3. Close the project after Unity finishes creating it.
+   ```bash
+   git clone https://github.com/carjam120443-netizen/tuxhorror.git
+   ```
 
-### 2. Prepare the Unity project folder
+2. In Unity Hub, choose **Add → Add project from disk** and select the cloned `tuxhorror` folder.
+3. Open it with Unity **6000.6.7f1** and wait for the first import to finish.
+4. In the Editor, select **Tools → TuxHorror → Create Starter Scene**.
+5. Open `Assets/Scenes/TuxHorror_Prototype.unity` and press **Play**.
 
-Clone this repository:
+The repository now includes the Unity project version and a minimal package manifest, so you do not need to create a temporary project or copy project settings.
 
-```bash
-git clone https://github.com/carjam120443-netizen/tuxhorror.git
-```
+## Building a Windows executable with GitHub Actions
 
-Because this starter repository does not yet contain Unity-generated project settings, create a temporary **3D (URP)** project in Unity Hub using your installed Unity 6 editor. Close both Unity projects, then copy the temporary project's `Packages` and `ProjectSettings` folders into the cloned `tuxhorror` folder. Do not replace the repository's `Assets` folder. You can then delete the temporary project.
+The repository includes `.github/workflows/build-windows.yml`. It builds a Windows 64-bit player and uploads a downloadable artifact containing `TuxHorror.exe` and its required data files.
 
-In Unity Hub, choose **Add → Add project from disk** and select the cloned `tuxhorror` folder. Open it and wait for Unity to import the assets.
+### One-time Unity Personal license setup
 
-### 3. Generate the prototype scene
+GitHub Actions needs a Unity license to run the Editor. For a Unity Personal license:
 
-1. Reopen `TuxHorror` in Unity Hub.
-2. Wait for scripts to compile.
-3. In the Unity menu, select **Tools → TuxHorror → Create Starter Scene**.
-4. Open `Assets/Scenes/TuxHorror_Prototype.unity`.
-5. Press **Play**.
+1. In Unity Hub, sign in and activate your free Personal license.
+2. Locate the license file. On Windows, GameCI documents the usual location as `C:\ProgramData\Unity\Unity_lic.ulf`.
+3. In this repository, open **Settings → Secrets and variables → Actions**.
+4. Add these repository secrets:
+   - `UNITY_LICENSE` — the full text of the `.ulf` file
+   - `UNITY_EMAIL` — the email address for your Unity account
+   - `UNITY_PASSWORD` — the Unity account password
 
-The scene builder creates a corridor, lights, a few props, a placeholder Tux, and a third-person camera. It is a greybox for testing, not the final art direction.
+**Never commit the license file or credentials to the repository, and do not paste them into chat.** Store them only as GitHub Actions secrets.
+
+### Run a build
+
+1. Open the repository's **Actions** tab.
+2. Select **Build TuxHorror for Windows**.
+3. Click **Run workflow**.
+4. When the run finishes, open it and download the **TuxHorror-Windows-x64** artifact.
+
+The artifact is a ZIP containing the executable and supporting files. Extract the whole ZIP before launching the game; the `.exe` needs its accompanying data folder and Unity runtime files.
 
 ## Controls
 
@@ -84,6 +95,8 @@ Unity will create `.meta` files when it imports the assets. Keep those files in 
 - [x] Basic third-person Tux movement
 - [x] Orbit camera
 - [x] Greybox facility scene generator
+- [x] Unity 6000.6.7f1 project metadata
+- [x] GitHub Actions Windows x64 build workflow
 - [ ] Replace primitive Tux with a proper character model
 - [ ] Add idle, walk, run, and jump animations
 - [ ] Add interaction system for doors, notes, and computers
