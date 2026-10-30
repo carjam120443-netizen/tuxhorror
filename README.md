@@ -31,7 +31,7 @@ The movement and camera scripts currently use Unity's built-in legacy Input API.
 2. Create a **3D (URP)** project named `TuxHorror` using your installed Unity 6 editor.
 3. Close the project after Unity finishes creating it.
 
-### 2. Add this repository
+### 2. Prepare the Unity project folder
 
 Clone this repository:
 
@@ -39,9 +39,9 @@ Clone this repository:
 git clone https://github.com/carjam120443-netizen/tuxhorror.git
 ```
 
-Copy the repository's `Assets` folder into the Unity project folder. If Unity asks whether to merge folders, choose **Merge**. Keep the Unity-generated `ProjectSettings`, `Packages`, and `ProjectVersion.txt` files from the project you created.
+Because this starter repository does not yet contain Unity-generated project settings, create a temporary **3D (URP)** project in Unity Hub using your installed Unity 6 editor. Close both Unity projects, then copy the temporary project's `Packages` and `ProjectSettings` folders into the cloned `tuxhorror` folder. Do not replace the repository's `Assets` folder. You can then delete the temporary project.
 
-Alternatively, clone the repository first and copy the Unity-generated project files into the cloned folder.
+In Unity Hub, choose **Add → Add project from disk** and select the cloned `tuxhorror` folder. Open it and wait for Unity to import the assets.
 
 ### 3. Generate the prototype scene
 
